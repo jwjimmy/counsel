@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath counselproj/ counselproj.wsgi --log-file -
