@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 from counselapp.views import HomeView
 from counselapp.views import HitCreate
+from counselapp.views import RequestCreate
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view()),
     url(r'^hits/create$', csrf_exempt(HitCreate.as_view(success_url="/hits/create"))),
+    url(r'^requests/create$', csrf_exempt(RequestCreate.as_view(success_url="/requests/create"))),
 ]

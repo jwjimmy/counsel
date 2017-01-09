@@ -17,7 +17,6 @@ import urlparse
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -27,7 +26,7 @@ SECRET_KEY = 'lf#i!&gjzsk*)9oss*cv1jtaqu$$22i%=x-(cvmq3@rx*^58@2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fathomless-castle-35327.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'fathomless-castle-35327.herokuapp.com']
 
 
 # Application definition
