@@ -22,11 +22,11 @@ class RequestView(View):
 		keys = [key for key in self.request.META.keys() if key in fields]
 		initial = { key.lower() : self.request.META[key] for key in keys }
 
-		form = RequestMeta(**initial)
-		print "After: " + str(form)
+		request_meta = RequestMeta(**initial)
+		print "Printing initializer"
 		print initial
-
-		form.save()
+		print str(request_meta.__dict__)
+		request_meta.save()
 
 		red = Image.new('RGBA', (1, 1), (255,0,0,0))
 		response = HttpResponse(content_type="image/jpeg")
