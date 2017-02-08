@@ -48,9 +48,9 @@ class RequestCreate(CreateView):
 		keys = [key for key in self.request.META.keys() if key in fields]
 		initial = { key.lower() : self.request.META[key] for key in keys }
 
-		logger("Before: " + str(type(form)))
+		logger.info("Before: " + str(type(form)))
 		form = RequestMetaForm(initial)
-		logger("After: " + str(type(form)))
+		logger.info("After: " + str(type(form)))
 
 		return super(RequestCreate, self).form_valid(form)
 
