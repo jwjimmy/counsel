@@ -9,6 +9,10 @@ class Hit(models.Model):
 	hit_at = models.DateTimeField(auto_now_add=True)
 	referer = models.CharField(max_length=1000)
 
+class Visit(models.Model):
+	created_at = models.DateTimeField(auto_now_add=True)
+	metadata = models.TextField()
+
 class RequestMeta(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	http_referer = models.CharField(max_length=1000)
