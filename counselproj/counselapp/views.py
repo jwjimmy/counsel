@@ -25,7 +25,13 @@ class RequestView(View):
 	@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 	def get(self, request, *args, **kwargs):
 		logger.info("Logging visit")
-		visit = Visit.objects.create(metadata=repr(request.META))
+		visit_dict = {}
+		visit_dict['metadata'] = repr(request.META)
+		if 'HTTP_REFERER' in request.META.keys():
+			visit_dict['estate'] = request.META['HTTP_REFERER']
+		if 'HTTP_X_FORWARDED_FOR' in request.META.keys():
+			visit_dict['visitor'] = request.META['HTTP_X_FORWARDED_FOR']
+		visit = Visit.objects.create(visit_dict)
 		logger.info("Successfully logged visit " + repr(visit.metadata))
 
 		red = Image.new('RGBA', (1, 1), (255,0,0,0))
