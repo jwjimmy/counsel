@@ -10,7 +10,7 @@ class RequestMetaAdmin(admin.ModelAdmin):
 	list_display = [item.name for item in RequestMeta._meta.fields]
 
 class VisitAdmin(admin.ModelAdmin):
-	list_display = ('created_at', 'metadata')
+	list_display = ('created_at', 'estate', 'visitor', 'metadata')
 
 # Register your models here.
 
