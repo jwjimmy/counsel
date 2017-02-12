@@ -8,11 +8,13 @@ from counselapp.models import Hit
 from counselapp.models import Visit
 from counselapp.models import RequestMeta
 from counselapp.models import RequestMetaForm
+from counselapp.utils import get_visit_dict
+
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.generic.edit import CreateView
 
-import copy
+import json
 import logging
 from PIL import Image
 
@@ -25,14 +27,10 @@ class RequestView(View):
 	@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 	def get(self, request, *args, **kwargs):
 		logger.info("Logging visit")
-		visit_dict = {}
-		visit_dict['metadata'] = repr(request.META)
-		if 'HTTP_REFERER' in request.META.keys():
-			visit_dict['estate'] = request.META['HTTP_REFERER']
-		if 'HTTP_X_FORWARDED_FOR' in request.META.keys():
-			visit_dict['visitor'] = request.META['HTTP_X_FORWARDED_FOR']
-		visit = Visit.objects.create(visit_dict)
-		logger.info("Successfully logged visit " + repr(visit.metadata))
+
+		visit = Visit.objects.create(**get_visit_dict(request.META))
+		dump = json.dumps(json.loads(visit.metadata), sort_keys=True, indent=4, separators=(',',': '))
+		logger.info("Successfully logged visit " + dump)
 
 		red = Image.new('RGBA', (1, 1), (255,0,0,0))
 		response = HttpResponse(content_type="image/jpeg")
