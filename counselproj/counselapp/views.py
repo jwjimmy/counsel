@@ -6,8 +6,6 @@ from django.views.decorators.cache import cache_control
 
 from counselapp.models import Hit
 from counselapp.models import Visit
-from counselapp.models import RequestMeta
-from counselapp.models import RequestMetaForm
 from counselapp.utils import get_visit_dict
 
 from django.http import HttpResponse
@@ -41,22 +39,6 @@ class HitCreate(CreateView):
 
     model = Hit
     fields = []
-
-class RequestCreate(CreateView):
-
-	model = RequestMeta
-	fields = []
-
-	def form_valid(self, form):
-		fields = [x.name.upper() for x in RequestMeta._meta.fields]
-		keys = [key for key in self.request.META.keys() if key in fields]
-		initial = { key.lower() : self.request.META[key] for key in keys }
-
-		logger.info("Before: " + str(type(form)))
-		form = RequestMetaForm(initial)
-		logger.info("After: " + str(type(form)))
-
-		return super(RequestCreate, self).form_valid(form)
 
 class HomeView(TemplateView):
 
