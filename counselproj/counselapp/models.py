@@ -11,6 +11,6 @@ class Hit(models.Model):
 
 class Visit(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
-	estate = models.CharField(max_length=1000, default="")
+	url = models.CharField(max_length=1000, default="")
 	visitor = models.CharField(max_length=2000, default="")
 	metadata = models.TextField()
