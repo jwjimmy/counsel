@@ -1,7 +1,8 @@
 from django.test import TestCase, RequestFactory
-from counselapp.utils import get_serialized_meta
-from counselapp.utils import RequestType, get_request_type
+from counselapp.models import Estate, Visit
+from counselapp.utils import get_serialized_meta, RequestType, get_request_type
 import json
+from ua_parser import user_agent_parser
 
 # Create your tests here.
 class RequestMetaTest(TestCase):
@@ -10,7 +11,7 @@ class RequestMetaTest(TestCase):
 
 	# Set up a same origin request 
 	def test_serialize_meta(self):
-		request = self.factory.get('/requests/passive')
+		request = self.factory.get('/requests/passive/a316f6b1-5307-489d-a9ec-c2ed02f00ed9')
 		get_serialized_meta(request.META)
 
 class UserAgentTest(TestCase):
@@ -35,3 +36,8 @@ class UserAgentTest(TestCase):
 		meta["HTTP_USER_AGENT"] = "github-camo (n644qup0)"
 		request_type = get_request_type(meta)
 		self.assertEqual(request_type, RequestType.GITHUB)
+
+	def test_ny(self):
+		ua_string = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+		ua_dict = user_agent_parser.ParseUserAgent(ua_string)
+		print ua_dict

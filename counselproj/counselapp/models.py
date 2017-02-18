@@ -3,14 +3,27 @@ from __future__ import unicode_literals
 from django.db import models
 from django import forms
 
+import uuid
+
 # Create your models here.
 
 class Hit(models.Model):
 	hit_at = models.DateTimeField(auto_now_add=True)
 	referer = models.CharField(max_length=1000)
 
+class Estate(models.Model):
+	created_at = models.DateTimeField(auto_now_add=True)
+	uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	name = models.CharField(max_length=500, default="")
+	description = models.CharField(max_length=1000, default="")
+	estate_type = models.IntegerField()
+
+	def __unicode__(self):
+		return self.name
+
 class Visit(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	url = models.CharField(max_length=1000, default="")
 	visitor = models.CharField(max_length=2000, default="")
 	metadata = models.TextField()
+	estate = models.ForeignKey(Estate, related_name="visits")

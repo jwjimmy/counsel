@@ -24,6 +24,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view()),
     url(r'^hits/create$', csrf_exempt(HitCreate.as_view(success_url="/hits/create"))),
-    url(r'^requests/passive$', csrf_exempt(RequestView.as_view())),
-    url(r'^requests/passive/(?P<pk>[0-9]+)$', csrf_exempt(RequestView.as_view())),
+    url(r'^requests/passive/(?P<uuid>.+)$', csrf_exempt(RequestView.as_view())),
 ]

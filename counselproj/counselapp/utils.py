@@ -31,12 +31,13 @@ def quote_objects(meta_str):
 def get_serialized_meta(meta):
 	return json.dumps(meta, cls=MetaEncoder)
 
-def get_visit_dict(meta):
+def get_visit_dict(meta, estate_uuid):
 	visit_dict = {}
 	meta_str = get_serialized_meta(meta)
+	visit_dict['estate_id'] = estate_uuid
 	visit_dict['metadata'] = meta_str
 	if 'HTTP_REFERER' in meta.keys():
-		visit_dict['estate'] = meta['HTTP_REFERER']
+		visit_dict['url'] = meta['HTTP_REFERER']
 	if 'HTTP_X_FORWARDED_FOR' in meta.keys():
 		visit_dict['visitor'] = meta['HTTP_X_FORWARDED_FOR']
 	return visit_dict
