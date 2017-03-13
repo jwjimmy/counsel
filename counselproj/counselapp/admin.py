@@ -9,8 +9,14 @@ class HitAdmin(admin.ModelAdmin):
 class VisitAdmin(admin.ModelAdmin):
 	list_display = ('created_at', 'estate', 'visitor', 'metadata')
 
+class VisitInline(admin.TabularInline):
+	model = Visit
+
 class EstateAdmin(admin.ModelAdmin):
 	list_display = ('created_at', 'uuid', 'description', 'estate_type')
+	inlines = [
+		VisitInline,
+	]
 
 # Register your models here.
 
