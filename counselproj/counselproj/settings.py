@@ -148,3 +148,6 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# FCM Config
+FCM_APIKEY = os.environ["FCM_APIKEY"]
