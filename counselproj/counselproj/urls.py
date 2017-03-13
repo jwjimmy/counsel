@@ -13,16 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 from counselapp.views import HomeView
 from counselapp.views import HitCreate
 from counselapp.views import RequestView
+from rest_framework import routers, serializers, viewsets
+from fcm.views import DeviceViewSet
+
+router = routers.DefaultRouter()
+router.register(r'devices', DeviceViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view()),
+    url(r'^fcm/', include('fcm.urls')),
+    url(r'^rest/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^hits/create$', csrf_exempt(HitCreate.as_view(success_url="/hits/create"))),
     url(r'^requests/passive/(?P<uuid>.+)$', csrf_exempt(RequestView.as_view())),
 ]

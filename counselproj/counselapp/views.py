@@ -5,7 +5,7 @@ from django.views.generic import View
 from django.views.decorators.cache import cache_control
 
 from counselapp.models import Hit, Visit, Estate
-from counselapp.utils import get_visit_dict
+from counselapp.utils import get_visit_dict, send_to_android
 
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -32,8 +32,11 @@ class RequestView(View):
 		if estate_count <= 0 or estate_count > 1:
 			raise SuspiciousOperation("Invalid uuid")
 
-		logger.info("Logging visit")
+		estate = Estate.objects.get(uuid=uuid)
+		if str(estate) == "the-creatives/ml-drinks":
+			send_to_android(str(estate))
 
+		logger.info("Logging visit for estate " + str(estate))
 		visit = Visit.objects.create(**get_visit_dict(request.META, uuid))
 		dump = json.dumps(json.loads(visit.metadata), sort_keys=True, indent=4, separators=(',',': '))
 		logger.info("Successfully logged visit " + dump)

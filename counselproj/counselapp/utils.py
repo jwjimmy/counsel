@@ -1,6 +1,8 @@
 import json
 import re
 from ua_parser import user_agent_parser
+from fcm.utils import get_device_model
+
 import logging
 logger = logging.getLogger('django.request')
 
@@ -41,6 +43,11 @@ def get_visit_dict(meta, estate_uuid):
 	if 'HTTP_X_FORWARDED_FOR' in meta.keys():
 		visit_dict['visitor'] = meta['HTTP_X_FORWARDED_FOR']
 	return visit_dict
+
+def send_to_android(estate_str):
+	Device = get_device_model()
+	test_phone = Device.objects.get(name="TestDevice102")
+	test_phone.send_message({'message':'hit for ' + estate_str}, collapse_key='something')
 
 class MetaEncoder(json.JSONEncoder):
 	def default(self, obj):
