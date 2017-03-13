@@ -12,4 +12,5 @@ How it works:
 Starting April 2017, I will begin accepting requests for user accounts.
 
 ![Oh](https://raw.githubusercontent.com/jwjimmy/counsel/master/obama.jpg "Bahamas")
+
 Special thanks to tobie for his [ua-parser](https://github.com/ua-parser/uap-python) library.
