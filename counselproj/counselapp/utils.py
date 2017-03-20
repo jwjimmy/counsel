@@ -46,7 +46,7 @@ def get_visit_dict(meta, estate_uuid):
 
 def send_to_android(estate_str):
 	Device = get_device_model()
-	test_phone = Device.objects.get(name="TestDevice102")
+	test_phone = Device.objects.get(name="TestDevice104")
 	test_phone.send_message({'message':'hit for ' + estate_str}, collapse_key='something')
 
 class MetaEncoder(json.JSONEncoder):
