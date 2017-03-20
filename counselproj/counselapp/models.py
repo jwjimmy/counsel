@@ -2,10 +2,18 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
+
+from fcm.models import AbstractDevice
 
 import uuid
 
 # Create your models here.
+
+class CounselDevice(AbstractDevice):
+	user = models.ForeignKey(User)
+	class Meta(AbstractDevice.Meta):
+		swappable = 'FCM_DEVICE_MODEL'
 
 class Hit(models.Model):
 	hit_at = models.DateTimeField(auto_now_add=True)

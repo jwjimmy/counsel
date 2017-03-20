@@ -151,3 +151,4 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # FCM Config
 FCM_APIKEY = os.environ["FCM_APIKEY"]
+FCM_DEVICE_MODEL = 'counselapp.CounselDevice'
