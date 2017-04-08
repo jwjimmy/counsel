@@ -22,6 +22,12 @@ logger = logging.getLogger('django.request')
 
 class RequestView(View):
 
+	def generate_pixel(self):
+		red = Image.new('RGBA', (1, 1), (255,0,0,0))
+		response = HttpResponse(content_type="image/jpeg")
+		red.save(response, "JPEG")
+		return response
+
 	@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 	def get(self, request, *args, **kwargs):
 		uuid = self.kwargs.get("uuid", None)
@@ -36,15 +42,16 @@ class RequestView(View):
 		if str(estate) == "the-creatives/ml-drinks":
 			send_to_android(str(estate))
 
+		if "HTTP_REFERER" in request.META.keys() and "localhost" in request.META["HTTP_REFERER"]:
+			logger.info("Discard localhost referer")
+			return self.generate_pixel()
+
 		logger.info("Logging visit for estate " + str(estate))
 		visit = Visit.objects.create(**get_visit_dict(request.META, uuid))
 		dump = json.dumps(json.loads(visit.metadata), sort_keys=True, indent=4, separators=(',',': '))
 		logger.info("Successfully logged visit " + dump)
 
-		red = Image.new('RGBA', (1, 1), (255,0,0,0))
-		response = HttpResponse(content_type="image/jpeg")
-		red.save(response, "JPEG")
-		return response
+		return self.generate_pixel()
 
 class HitCreate(CreateView):
 
