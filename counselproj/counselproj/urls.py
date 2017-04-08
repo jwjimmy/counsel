@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import csrf_exempt
 from counselapp.views import HomeView
 from counselapp.views import HitCreate
@@ -26,8 +27,10 @@ router = routers.DefaultRouter()
 router.register(r'devices', DeviceViewSet)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', HomeView.as_view()),
+    url(r'^login/', auth_views.login, {'template_name': 'counselapp/login.html'}, name='login'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^logout/', auth_views.logout, name='logout'),
+    url(r'^$', HomeView.as_view(), name='home'),
     url(r'^fcm/', include('fcm.urls')),
     url(r'^rest/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
