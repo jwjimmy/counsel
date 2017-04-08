@@ -116,6 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Login configuration
+LOGIN_REDIRECT_URL = 'admin:index'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
