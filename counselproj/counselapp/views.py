@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.views.generic import View
+from django.views.generic.edit import CreateView
 from django.views.decorators.cache import cache_control
 
 from counselapp.models import Hit, Visit, Estate
@@ -10,7 +11,7 @@ from counselapp.utils import get_visit_dict, send_to_android
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.exceptions import SuspiciousOperation
-from django.views.generic.edit import CreateView
+from django.contrib.gis.geoip2 import GeoIP2
 
 import json
 import logging
