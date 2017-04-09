@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import csrf_exempt
 from counselapp.views import HomeView
 from counselapp.views import HitCreate
-from counselapp.views import RequestView
+from counselapp.views import RequestView, EstateView
 from rest_framework import routers, serializers, viewsets
 from fcm.views import DeviceViewSet
 
@@ -36,4 +36,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^hits/create$', csrf_exempt(HitCreate.as_view(success_url="/hits/create"))),
     url(r'^requests/passive/(?P<uuid>.+)$', csrf_exempt(RequestView.as_view())),
+    url(r'^estate/(?P<uuid>.+)$', EstateView.as_view(), name='estate'),
 ]

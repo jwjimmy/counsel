@@ -117,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Login configuration
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'admin:index'
 
 
@@ -155,3 +156,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # FCM Config
 FCM_APIKEY = os.environ["FCM_APIKEY"]
 FCM_DEVICE_MODEL = 'counselapp.CounselDevice'
+
+# GEOIP2 Config
+GEOIP_PATH = os.path.join(os.path.join(BASE_DIR, 'counselapp'), 'mmdb')

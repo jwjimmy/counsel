@@ -1,0 +1,9 @@
+{% csrf_token %}
+
+<h1>Visits for {{ estate.name }}</h1>
+
+<ul>
+  {% for visit in object_list %}
+    <li class="visit">{{ visit.created_at }} {{ visit.visitor }} {{ visit.location }}</li>
+  {% endfor %}
+</ul>
