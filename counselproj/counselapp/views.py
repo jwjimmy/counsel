@@ -10,7 +10,9 @@ from counselapp.utils import get_visit_dict, send_to_android
 
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
 from django.core.exceptions import SuspiciousOperation
+from django.contrib.auth.decorators import login_required
 from django.contrib.gis.geoip2 import GeoIP2
 
 import json
@@ -20,6 +22,26 @@ from PIL import Image
 logger = logging.getLogger('django.request')
 
 # Create your views here.
+
+@method_decorator(login_required, name='dispatch')
+class EstateView(ListView):
+	model = Visit
+
+	def get_queryset(self):
+		uuid = self.kwargs['uuid']
+		print uuid
+		return Visit.objects.filter(estate=uuid).order_by('created_at').reverse()
+
+	def get_context_data(self):
+		g = GeoIP2()
+		visits = self.get_queryset()
+		for visit in visits:
+			visit.location = g.city(visit.visitor)['city']
+
+		context = {}
+		context['estate'] = Estate.objects.get(uuid=self.kwargs['uuid'])
+		context['object_list'] = visits
+		return context
 
 class RequestView(View):
 

@@ -117,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Login configuration
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'admin:index'
 
 
