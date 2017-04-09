@@ -1,0 +1,9 @@
+{% csrf_token %}
+
+<h1>Estates for {{ username }}</h1>
+
+<ul>
+  {% for estate in object_list %}
+    <li class="visit"><a href="/estate/{{estate.uuid}}">{{ estate }}</a></li>
+  {% endfor %}
+</ul>

@@ -25,6 +25,7 @@ class Estate(models.Model):
 	name = models.CharField(max_length=500, default="")
 	description = models.CharField(max_length=1000, default="")
 	estate_type = models.IntegerField()
+	owner = models.ForeignKey(User, related_name="estates")
 
 	def __unicode__(self):
 		return self.name

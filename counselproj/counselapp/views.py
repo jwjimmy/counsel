@@ -12,8 +12,10 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.core.exceptions import SuspiciousOperation
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib.gis.geoip2 import GeoIP2
+from django.contrib.gis.geoip2 import GeoIP2#, GeoIP2Exception
+from geoip2.errors import AddressNotFoundError
 
 import json
 import logging
@@ -22,6 +24,23 @@ from PIL import Image
 logger = logging.getLogger('django.request')
 
 # Create your views here.
+
+@method_decorator(login_required, name='dispatch')
+class EstateList(ListView):
+	model = Estate
+
+	def get_queryset(self):
+		user_id = self.kwargs['user_id']
+		return Estate.objects.filter(owner=user_id)
+
+	def get_context_data(self):
+		user_id = self.kwargs['user_id']
+		user = User.objects.get(id=user_id)
+
+		context = {}
+		context['username'] = user.username
+		context['object_list'] = self.get_queryset()
+		return context
 
 @method_decorator(login_required, name='dispatch')
 class EstateView(ListView):
@@ -36,7 +55,10 @@ class EstateView(ListView):
 		g = GeoIP2()
 		visits = self.get_queryset()
 		for visit in visits:
-			visit.location = g.city(visit.visitor)['city']
+			try:
+				visit.location = g.city(visit.visitor)['city']
+			except AddressNotFoundError as e:
+				pass
 
 		context = {}
 		context['estate'] = Estate.objects.get(uuid=self.kwargs['uuid'])
