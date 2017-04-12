@@ -1,5 +1,7 @@
+{% extends 'counselapp/base.html' %}
 {% csrf_token %}
 
+{% block content %}
 <h1>Estates for {{ username }}</h1>
 
 <ul>
@@ -7,3 +9,4 @@
     <li class="visit"><a href="/estate/{{estate.uuid}}">{{ estate }}</a></li>
   {% endfor %}
 </ul>
+{% endblock %}

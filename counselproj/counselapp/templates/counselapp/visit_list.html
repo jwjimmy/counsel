@@ -1,5 +1,7 @@
+{% extends 'counselapp/base.html' %}
 {% csrf_token %}
 
+{% block content %}
 <h1>Visits for {{ estate.name }}</h1>
 
 <ul>
@@ -7,3 +9,4 @@
     <li class="visit">{{ visit.created_at }} {{ visit.visitor }} {{ visit.location }}</li>
   {% endfor %}
 </ul>
+{% endblock %}
