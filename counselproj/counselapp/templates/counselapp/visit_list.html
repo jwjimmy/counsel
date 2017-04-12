@@ -4,9 +4,13 @@
 {% block content %}
 <h1>Visits for {{ estate.name }}</h1>
 
-<ul>
+<table>
   {% for visit in object_list %}
-    <li class="visit">{{ visit.created_at }} {{ visit.visitor }} {{ visit.location }}</li>
+    <tr>
+  	  <td>{{ visit.created_at }}</td>
+  	  <td>{{ visit.visitor }}</td>
+  	  <td>{{ visit.location }}</td>
+	</tr>
   {% endfor %}
-</ul>
+</table>
 {% endblock %}
