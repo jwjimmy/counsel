@@ -4,6 +4,11 @@
 {% block content %}
 <h1>Estates for {{ username }}</h1>
 
+<!--
+<a href="/admin">Admin panel</a>
+-->
+<a href="/logout">Log out</a>
+
 <ul>
   {% for estate in object_list %}
     <li class="visit"><a href="/estate/{{estate.uuid}}">{{ estate }}</a></li>

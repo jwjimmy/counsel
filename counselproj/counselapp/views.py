@@ -14,6 +14,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import SuspiciousOperation
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.gis.geoip2 import GeoIP2#, GeoIP2Exception
 from geoip2.errors import AddressNotFoundError
 
@@ -25,6 +26,24 @@ logger = logging.getLogger('django.request')
 
 # Create your views here.
 
+@method_decorator(login_required, name='dispatch')
+class UserHome(ListView):
+	model = Estate
+
+	def get_queryset(self):
+		user_id = self.request.user.id
+		return Estate.objects.filter(owner=user_id)
+
+	def get_context_data(self):
+		user_id = self.request.user.id
+		user = User.objects.get(id=user_id)
+
+		context = {}
+		context['username'] = user.username
+		context['object_list'] = self.get_queryset()
+		return context
+
+@method_decorator(staff_member_required, name='dispatch')
 @method_decorator(login_required, name='dispatch')
 class EstateList(ListView):
 	model = Estate
