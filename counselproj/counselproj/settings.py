@@ -161,3 +161,6 @@ FCM_DEVICE_MODEL = 'counselapp.CounselDevice'
 
 # GEOIP2 Config
 GEOIP_PATH = os.path.join(os.path.join(BASE_DIR, 'counselapp'), 'mmdb')
+
+# Email Config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

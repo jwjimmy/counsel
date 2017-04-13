@@ -4,4 +4,19 @@
 {% load static from staticfiles %}
 <h1>Counsel Home</h1>
 <img src="{% static 'img/logo.png' %}">
+
+
+{% if not has_account %}
+<div>
+<a href="/login">Log In</a>
+</div>
+{% else %}
+<div>
+<a href="/logout">Log Out</a>
+</div>
+{% endif %}
+
+<div>
+<a href="/signup">Sign up</a>
+</div>
 {% endblock %}

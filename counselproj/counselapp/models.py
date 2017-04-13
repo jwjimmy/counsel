@@ -36,3 +36,8 @@ class Visit(models.Model):
 	visitor = models.CharField(max_length=2000, default="")
 	metadata = models.TextField()
 	estate = models.ForeignKey(Estate, related_name="visits")
+
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
+	activation_key = models.CharField(max_length=40)
+	key_expires = models.DateTimeField()

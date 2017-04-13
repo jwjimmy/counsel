@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import csrf_exempt
 from counselapp.views import HomeView
 from counselapp.views import HitCreate
-from counselapp.views import RequestView, EstateView, EstateList, UserHome
+from counselapp.views import RequestView, EstateView, EstateList, UserHome, UserSignUp, UserSignUpSuccess, UserLoggedOut
 from rest_framework import routers, serializers, viewsets
 from fcm.views import DeviceViewSet
 
@@ -29,7 +29,9 @@ router.register(r'devices', DeviceViewSet)
 urlpatterns = [
     url(r'^login/', auth_views.login, {'template_name': 'counselapp/login.html'}, name='login'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^logout/', auth_views.logout, name='logout'),
+    url(r'^logout/', UserLoggedOut.as_view(), name='logout'),
+    url(r'^signup/', UserSignUp.as_view(), name='signup'),
+    url(r'^signup_success/', UserSignUpSuccess.as_view(), name='signup-success'),
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^fcm/', include('fcm.urls')),
     url(r'^rest/', include(router.urls)),
