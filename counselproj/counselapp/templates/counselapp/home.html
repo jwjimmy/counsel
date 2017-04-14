@@ -5,9 +5,31 @@
 <div class="col-md-6">
 <img src="{% static 'img/logo.png' %}">
 
+<div class="row counseldiv">
 {% if loggedout %}
+<div>
 Logged out successfully.
+</div>
 {% endif %}
+
+{% if expired %}
+<div>
+Your registration key is expired. Please try signing up again.
+</div>
+{% endif %}
+
+{% if expired %}
+<div>
+You have successfully registered for an account. Go ahead and log in.
+</div>
+{% endif %}
+
+{% if username %}
+<div>
+Logged in as {{ username }}
+</div>
+{% endif %}
+</div>
 
 <div class="row counseldiv">
 {% if not has_account %}

@@ -203,4 +203,6 @@ class HomeView(TemplateView):
 		context = {}
 		if self.request.user.is_authenticated():
 			context['has_account'] = True
+			user = User.objects.get(id=self.request.user.id)
+			context['username'] = user.username
 		return context
