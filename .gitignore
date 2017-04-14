@@ -1,4 +1,5 @@
 tools
+counselproj/settings_dev.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
