@@ -5,10 +5,10 @@ import string
 
 class RegistrationForm(forms.Form):
 	
-	username = forms.CharField(label='username', max_length=30, required=True)
-	email = forms.EmailField(label='email', max_length=30, required=True)
-	password1 = forms.CharField(label='password1', widget=forms.PasswordInput(), required=True)
-	password2 = forms.CharField(label='password2', widget=forms.PasswordInput(), required=True)
+	username = forms.CharField(label='Username', max_length=30, required=True)
+	email = forms.EmailField(label='Email', max_length=30, required=True)
+	password1 = forms.CharField(label='Password', widget=forms.PasswordInput(), required=True)
+	password2 = forms.CharField(label='Password (again)', widget=forms.PasswordInput(), required=True)
 
 	def clean_username(self):
 		try:

@@ -3,14 +3,17 @@
 
 {% block content %}
 <h1>Visits for {{ estate.name }}</h1>
+<a href="/user" class="btn btn-default">All estates</a>
 
-<table>
-  {% for visit in object_list %}
-    <tr>
-  	  <td>{{ visit.created_at }}</td>
-  	  <td>{{ visit.visitor }}</td>
-  	  <td>{{ visit.location }}</td>
-	</tr>
-  {% endfor %}
-</table>
+<div class="counseldiv">
+	<table>
+	  {% for visit in object_list %}
+	    <tr>
+	  	  <td>{{ visit.created_at }}</td>
+	  	  <td>{{ visit.visitor }}</td>
+	  	  <td>{{ visit.location }}</td>
+		</tr>
+	  {% endfor %}
+	</table>
+</div>
 {% endblock %}

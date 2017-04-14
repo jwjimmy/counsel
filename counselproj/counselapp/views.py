@@ -38,7 +38,7 @@ class UserLoggedOut(View):
 	def get(self, request):
 		response = logout(request)
 
-		return render(response, self.template_name)
+		return HttpResponseRedirect(reverse('home'))
 
 class UserSignUpSuccess(TemplateView):
 

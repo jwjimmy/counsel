@@ -2,21 +2,26 @@
 
 {% block content %}
 {% load static from staticfiles %}
-<h1>Counsel Home</h1>
+<div class="col-md-6">
 <img src="{% static 'img/logo.png' %}">
 
-
-{% if not has_account %}
-<div>
-<a href="/login">Log In</a>
-</div>
-{% else %}
-<div>
-<a href="/logout">Log Out</a>
-</div>
+{% if loggedout %}
+Logged out successfully.
 {% endif %}
 
-<div>
-<a href="/signup">Sign up</a>
-</div>
+<div class="row counseldiv">
+{% if not has_account %}
+	<div class="col-md-3">
+	<a href="/login" class="btn btn-default">Log In</a>
+	</div>
+{% else %}
+	<div class="col-md-3">
+	<a href="/logout" class="btn btn-default">Log Out</a>
+	</div>
+{% endif %}
+	<div class="col-md-3">
+	<a href="/signup" class="btn btn-default">Sign up</a>
+	</div>
 {% endblock %}
+</div>
+</div>
