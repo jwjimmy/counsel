@@ -164,9 +164,3 @@ GEOIP_PATH = os.path.join(os.path.join(BASE_DIR, 'counselapp'), 'mmdb')
 
 # Email Config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# Securitahhhh
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
