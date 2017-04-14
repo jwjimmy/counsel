@@ -1,0 +1,10 @@
+{% extends 'counselapp/base.html' %}
+{% csrf_token %}
+{% block title %}Success{% endblock %}
+
+{% block content %}
+  <h2>Sign up successful</h2>
+  <div class="counseldiv">
+  	Next step: check your email, and click the verification link to confirm your account
+  </div>
+{% endblock %}
