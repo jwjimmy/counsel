@@ -31,6 +31,19 @@ logger = logging.getLogger('django.request')
 
 # Create your views here.
 
+class UserConfirmRegistration(View):
+
+	def get(self, request, activation_key):
+		if request.user.is_authenticated():
+			return render(request, 'counselapp/home.html', {'has_account': True})
+		user_profile = get_object_or_404(UserProfile, activation_key=activation_key)
+		if user_profile.key_expires < now():
+			return render(request, 'counselapp/home.html', {'expired': True})
+		user_account = user_profile.user
+		user_account.is_active = True
+		user_account.save()
+		return render(request, 'counselapp/home.html', {'confirm_success': True})
+
 class UserLoggedOut(View):
 
 	template_name = "counselapp/logout.html"
@@ -85,7 +98,7 @@ class UserSignUp(TemplateView):
 			email_subject = 'Your new example.com account confirmation'
 			email_body = "Hi %s, thanks for signing up. <br> \
 			To activate your account, click this link within 48 hours:<br> \
-			http://localhost:8000/accounts/confirm/%s" % (
+			http://fathomless-castle-35327.herokuapp.com/user/confirm/%s" % (
 				new_user.username,
 				new_profile.activation_key)
 			send_mail(email_subject,
