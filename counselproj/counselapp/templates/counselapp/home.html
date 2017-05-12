@@ -3,47 +3,62 @@
 {% block content %}
 {% load static from staticfiles %}
 <div class="col-md-6">
-<img src="{% static 'img/logo.png' %}">
+	<a href="/user">
+		<img src="{% static 'img/logo.png' %}">
+	</a>
 
-<div class="row counseldiv">
-{% if loggedout %}
-<div>
-Logged out successfully.
-</div>
-{% endif %}
-
-{% if expired %}
-<div>
-Your registration key is expired. Please try signing up again.
-</div>
-{% endif %}
-
-{% if confirm_success %}
-<div>
-You have successfully registered for an account. Go ahead and log in.
-</div>
-{% endif %}
-
-{% if username %}
-<div>
-Logged in as {{ username }}
-</div>
-{% endif %}
-</div>
-
-<div class="row counseldiv">
-{% if not has_account %}
-	<div class="col-md-3">
-	<a href="/login" class="btn btn-default">Log In</a>
+	<div class="row counseldiv">
+	{% if loggedout %}
+	<div>
+	Logged out successfully.
 	</div>
-{% else %}
-	<div class="col-md-3">
-	<a href="/logout" class="btn btn-default">Log Out</a>
+	{% endif %}
+
+	{% if expired %}
+	<div>
+	Your registration key is expired. Please try signing up again.
 	</div>
-{% endif %}
-	<div class="col-md-3">
-	<a href="/signup" class="btn btn-default">Sign up</a>
+	{% endif %}
+
+	{% if confirm_success %}
+	<div>
+	You have successfully registered for an account. Go ahead and log in.
 	</div>
+	{% endif %}
+
+	{% if username %}
+	<div>
+	Logged in as {{ username }}
+	</div>
+	{% endif %}
+	</div>
+
+	<div class="row counseldiv">
+	{% if not has_account %}
+		<div class="col-md-3">
+		<a href="/login" class="btn btn-default">Log In</a>
+		</div>
+	{% else %}
+		<div class="col-md-3">
+		<a href="/logout" class="btn btn-default">Log Out</a>
+		</div>
+	{% endif %}
+		<div class="col-md-3">
+		<a href="/signup" class="btn btn-default">Sign up</a>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-6">
+	<div class="row counseldiv">
+		<h2>Directions to explore</h2>
+		<div class="counseldiv">
+			<ul>
+				<li>Tracking pixels</li>
+				<li>Server side analytics</li>
+				<li>Client side analytics</li>
+			</ul>
+		</div>
+	</div>
+</div>
 {% endblock %}
-</div>
-</div>
